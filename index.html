@@ -6,7 +6,7 @@
   <title>Flashcards</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="text-align: center;">
 
   <div id="app">
 
@@ -14,7 +14,7 @@
       <div id="timer-bar"></div>
     </div>
 
-    <div id="timer-display">60s</div>
+    <div id="timer-display" style="font-size: 50px;">60s</div>
 
     <div id="card">
       <div id="question"></div>
@@ -42,18 +42,14 @@
   <script>
 // Cards: ["question - answer"]
 const cards = [
-  ["What does `typeof null` return? - \"object\" — a historical bug in JS"],
-  ["What is a closure? - A function that retains access to its outer scope's variables after the outer function returns"],
-  ["Difference between `==` and `===`? - `==` coerces types; `===` checks value AND type with no coercion"],
-  ["What does `Array.prototype.reduce()` do? - Runs a reducer on each element, accumulating a single output value"],
-  ["What is event delegation? - One listener on a parent handles events from children via bubbling"],
-  ["What is the event loop? - Processes the call stack and callback queue, enabling async non-blocking JS"],
-  ["Difference between `let`, `const`, and `var`? - `var` is function-scoped and hoisted; `let`/`const` are block-scoped. `const` can't be reassigned"],
-  ["What is a Promise? - An object representing the eventual completion or failure of an async operation"],
-  ["What does `this` refer to in an arrow function? - The enclosing lexical scope — arrow functions have no own `this`"],
-  ["What is prototypal inheritance? - Objects inherit from other objects via the prototype chain, not from classes"],
-  ["What is `NaN` and how do you check for it? - Not a Number. Use `Number.isNaN(val)` — global `isNaN()` coerces and can mislead"],
-  ["What does `'use strict'` do? - Catches silent errors, forbids undeclared vars, disables some legacy features"],
+  ["What receptors in the skin detect temperature? - Thermoreceptors"],
+  ["What hormone is released when the body detects dehydration? - ADH (Antidiuretic hormone)"],
+  ["What gland secretes adrenocorticotropic hormone (ACTH) which tells the adrenal glands to release cortisol? - Pituitary gland"],
+  ["What hormone is secreted when glucose levels are detected to be too high? - Insulin"],
+  ["What occurs when the hypothalamus stops producing thyroxine? - Hypothyroidism"],
+  ["What is the main hormone produced by the male reproductive system? - Testosterone"],
+  ["What gland produces epinephrine? - Adrenal glands"],
+  ["What hormone causes the flight response? - Adrenaline or epinephrine"],
 ];
 
 const TIMER_DURATION = 60;
