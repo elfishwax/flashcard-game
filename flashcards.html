@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="app">
+
+    <div id="timer-bar-wrap">
+      <div id="timer-bar"></div>
+    </div>
+
+    <div id="timer-display">60s</div>
+
+    <div id="card">
+      <div id="question"></div>
+      <div id="answer" class="hidden"></div>
+    </div>
+
+    <div id="controls">
+      <span id="progress"></span>
+      <div id="buttons">
+        <button id="btn-restart">Restart</button>
+        <button id="btn-next">Skip</button>
+      </div>
+    </div>
+
+    <div id="hint">Press <kbd>Space</kbd> to advance</div>
+
+  </div>
+
+  <div id="done-screen" class="hidden">
+    <h2 id="done-title"></h2>
+    <p id="done-msg"></p>
+    <button id="btn-play-again">Play again</button>
+  </div>
+
+  <script>
+// Cards: ["question - answer"]
+const cards = [
+  ["What does `typeof null` return? - \"object\" — a historical bug in JS"],
+  ["What is a closure? - A function that retains access to its outer scope's variables after the outer function returns"],
+  ["Difference between `==` and `===`? - `==` coerces types; `===` checks value AND type with no coercion"],
+  ["What does `Array.prototype.reduce()` do? - Runs a reducer on each element, accumulating a single output value"],
+  ["What is event delegation? - One listener on a parent handles events from children via bubbling"],
+  ["What is the event loop? - Processes the call stack and callback queue, enabling async non-blocking JS"],
+  ["Difference between `let`, `const`, and `var`? - `var` is function-scoped and hoisted; `let`/`const` are block-scoped. `const` can't be reassigned"],
+  ["What is a Promise? - An object representing the eventual completion or failure of an async operation"],
+  ["What does `this` refer to in an arrow function? - The enclosing lexical scope — arrow functions have no own `this`"],
+  ["What is prototypal inheritance? - Objects inherit from other objects via the prototype chain, not from classes"],
+  ["What is `NaN` and how do you check for it? - Not a Number. Use `Number.isNaN(val)` — global `isNaN()` coerces and can mislead"],
+  ["What does `'use strict'` do? - Catches silent errors, forbids undeclared vars, disables some legacy features"],
+];
+
+const TIMER_DURATION = 60;
+
+let deck = [];
+let idx = 0;
+let remaining = TIMER_DURATION;
+let timerInterval = null;
+
+const elQuestion  = document.getElementById('question');
+const elAnswer    = document.getElementById('answer');
+const elProgress  = document.getElementById('progress');
+const elTimerBar  = document.getElementById('timer-bar');
+const elTimerDisp = document.getElementById('timer-display');
+const elApp       = document.getElementById('app');
+const elDone      = document.getElementById('done-screen');
+const elDoneTitle = document.getElementById('done-title');
+const elDoneMsg   = document.getElementById('done-msg');
+const btnNext     = document.getElementById('btn-next');
+
+document.getElementById('btn-restart').addEventListener('click', restart);
+document.getElementById('btn-play-again').addEventListener('click', restart);
+btnNext.addEventListener('click', nextCard);
+
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space') {
+    e.preventDefault();
+    nextCard();
+  }
+});
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function parseCard(entry) {
+  const sep = entry[0].indexOf(' - ');
+  return {
+    q: entry[0].slice(0, sep),
+    a: entry[0].slice(sep + 3),
+  };
+}
+
+function restart() {
+  deck = shuffle(cards);
+  idx = 0;
+  remaining = TIMER_DURATION;
+  clearInterval(timerInterval);
+  elApp.classList.remove('hidden');
+  elDone.classList.add('hidden');
+  showCard();
+  startTimer();
+}
+
+function showCard() {
+  const card = parseCard(deck[idx]);
+  elQuestion.textContent = card.q;
+  elAnswer.textContent = card.a;
+  elProgress.textContent = `${idx + 1} / ${deck.length}`;
+}
+
+function revealAnswer() {
+  elAnswer.classList.remove('hidden');
+  revealed = true;
+  btnNext.textContent = 'Next';
+}
+
+function nextCard() {
+  if (idx < deck.length - 1) {
+    idx++;
+    showCard();
+  } else {
+    endGame('complete');
+  }
+}
+
+function updateTimerBar() {
+  const pct = (remaining / TIMER_DURATION) * 100;
+  elTimerBar.style.width = pct + '%';
+  elTimerBar.className = remaining > 20 ? 'bar-green' : remaining > 8 ? 'bar-amber' : 'bar-red';
+}
+
+function startTimer() {
+  updateTimerBar();
+  elTimerDisp.textContent = remaining + 's';
+  timerInterval = setInterval(() => {
+    remaining--;
+    elTimerDisp.textContent = remaining + 's';
+    updateTimerBar();
+    if (remaining <= 0) endGame('timeout');
+  }, 1000);
+}
+
+function endGame(reason) {
+  clearInterval(timerInterval);
+  elApp.classList.add('hidden');
+  elDone.classList.remove('hidden');
+  if (reason === 'timeout') {
+    elDoneTitle.textContent = "Time's up!";
+    elDoneMsg.textContent = `You reached card ${idx + 1} of ${deck.length}.`;
+  } else {
+    elDoneTitle.textContent = 'Deck complete!';
+    elDoneMsg.textContent = `You went through all ${deck.length} cards.`;
+  }
+}
+
+restart();
+  </script>
+</body>
+</html>
