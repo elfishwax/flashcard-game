@@ -18,7 +18,7 @@
 
     <div id="card">
       <div id="question"></div>
-      <div id="answer" class="hidden"></div>
+      <strong><div id="answer" class="hidden"></div></strong>
     </div>
 
     <div id="controls">
@@ -42,14 +42,129 @@
   <script>
 // Cards: ["question - answer"]
 const cards = [
+  // --- Homeostasis: core concepts ---
+  ["What is homeostasis? - The process by which the body maintains a stable internal environment suitable for cell function"],
+  ["Why is homeostasis important? - Because cells can only function properly within a narrow range of conditions"],
+  ["What are the two main control systems that maintain homeostasis? - The nervous system and the endocrine system"],
+  ["What is a stimulus? - A change in the internal or external environment that the body detects"],
+  ["What is a receptor? - A cell or organ that detects a stimulus"],
+  ["What is a control centre? - The part of the body that processes information and decides on a response (usually the brain or spinal cord)"],
+  ["What is an effector? - A muscle or gland that carries out the response to a stimulus"],
+  ["What is the correct order of the stimulus-response model? - Stimulus → Receptor → Control centre → Effector → Response"],
+  ["What is a feedback loop? - A process where the body detects a change and responds to correct it back to normal"],
+  ["What type of feedback loop does the body mostly use? - Negative feedback"],
+  ["What is negative feedback? - When the body's response reduces or reverses the original change to restore balance"],
+  ["Give an example of negative feedback - Body temperature rising causes sweating, which cools the body back down"],
+  ["What is positive feedback? - When the body's response amplifies the original change (less common in homeostasis)"],
+  ["Give an example of positive feedback in the body - Contractions during childbirth — each contraction triggers more oxytocin, intensifying further contractions"],
+  ["What three conditions does the body most closely regulate? - Body temperature, blood glucose levels, and water balance"],
+
+  // --- Temperature regulation ---
   ["What receptors in the skin detect temperature? - Thermoreceptors"],
+  ["What part of the brain regulates body temperature? - The hypothalamus"],
+  ["What is the normal core body temperature in humans? - 37°C"],
+  ["What is the response to overheating? - Sweating, vasodilation, and reduced activity"],
+  ["What is the response to being too cold? - Shivering, vasoconstriction, and goosebumps"],
+  ["What is vasodilation? - The widening of blood vessels near the skin to release more heat"],
+  ["What is vasoconstriction? - The narrowing of blood vessels near the skin to conserve heat"],
+  ["Why does skin flush red when you're hot? - Vasodilation brings more blood to the surface, releasing heat"],
+  ["What is shivering? - Rapid involuntary muscle contractions that generate heat"],
+  ["What is the medical term for dangerously low body temperature? - Hypothermia"],
+  ["What is the medical term for dangerously high body temperature? - Hyperthermia (or heat stroke)"],
+  ["What is sweating an example of in homeostasis? - A negative feedback response to reduce body temperature"],
+  ["What are goosebumps a response to? - Cold — they cause hairs to stand up to trap a layer of warm air near the skin"],
+
+  // --- Blood glucose regulation ---
+  ["What hormone is secreted when blood glucose is too high? - Insulin"],
+  ["What organ produces insulin and glucagon? - The pancreas"],
+  ["What does insulin do? - Stimulates cells to absorb glucose from the blood, lowering blood glucose levels"],
+  ["Where is excess glucose stored after insulin acts? - In the liver and muscles as glycogen"],
+  ["What hormone is released when blood glucose is too low? - Glucagon"],
+  ["What does glucagon do? - Stimulates the liver to break down glycogen into glucose, raising blood glucose"],
+  ["What cells in the pancreas produce insulin? - Beta cells"],
+  ["What cells in the pancreas produce glucagon? - Alpha cells"],
+  ["What condition results from the body not producing enough insulin? - Type 1 diabetes mellitus"],
+  ["What condition results from cells not responding properly to insulin? - Type 2 diabetes mellitus"],
+  ["How is Type 1 diabetes treated? - With insulin injections or an insulin pump"],
+  ["What is glycogen? - The storage form of glucose in the liver and muscle cells"],
+
+  // --- Water balance ---
   ["What hormone is released when the body detects dehydration? - ADH (Antidiuretic hormone)"],
-  ["What gland secretes adrenocorticotropic hormone (ACTH) which tells the adrenal glands to release cortisol? - Pituitary gland"],
-  ["What hormone is secreted when glucose levels are detected to be too high? - Insulin"],
-  ["What occurs when the hypothalamus stops producing thyroxine? - Hypothyroidism"],
-  ["What is the main hormone produced by the male reproductive system? - Testosterone"],
-  ["What gland produces epinephrine? - Adrenal glands"],
-  ["What hormone causes the flight response? - Adrenaline or epinephrine"],
+  ["What does ADH stand for? - Antidiuretic hormone"],
+  ["What does ADH do? - Causes the kidneys to reabsorb more water, reducing urine output"],
+  ["Where is ADH produced? - The hypothalamus"],
+  ["Where is ADH released from? - The posterior pituitary gland"],
+  ["What organ filters blood and controls water balance? - The kidneys"],
+  ["What is urine made of? - Water, urea, salts, and other waste products filtered from the blood"],
+  ["What happens to urine output when you are well hydrated? - Urine output increases and urine is pale/dilute"],
+  ["What happens to urine output when you are dehydrated? - Urine output decreases and urine is dark/concentrated"],
+
+  // --- Endocrine system ---
+  ["What is the endocrine system? - A system of glands that produce and release hormones into the bloodstream"],
+  ["What is a hormone? - A chemical messenger produced by a gland and carried in the blood to target organs"],
+  ["What is a target organ? - An organ that responds to a specific hormone"],
+  ["What gland is known as the 'master gland'? - The pituitary gland"],
+  ["Where is the pituitary gland located? - At the base of the brain, beneath the hypothalamus"],
+  ["What gland secretes ACTH to stimulate cortisol release? - The pituitary gland"],
+  ["What does cortisol do? - Helps the body respond to stress and regulates metabolism"],
+  ["What gland produces epinephrine (adrenaline)? - The adrenal glands"],
+  ["Where are the adrenal glands located? - On top of the kidneys"],
+  ["What hormone causes the fight-or-flight response? - Adrenaline (epinephrine)"],
+  ["What are the effects of adrenaline on the body? - Increased heart rate, dilated pupils, redirected blood flow to muscles, and release of glucose"],
+  ["What is the main hormone produced by the testes? - Testosterone"],
+  ["What hormones are produced by the ovaries? - Oestrogen and progesterone"],
+  ["What does thyroxine do? - Regulates metabolic rate and growth"],
+  ["What gland produces thyroxine? - The thyroid gland"],
+  ["What condition results from too little thyroxine? - Hypothyroidism"],
+  ["What condition results from too much thyroxine? - Hyperthyroidism"],
+  ["How is the endocrine system different from the nervous system in terms of speed? - Hormones act more slowly but have longer-lasting effects than nerve signals"],
+
+  // --- Nervous system structure ---
+  ["What are the two main divisions of the nervous system? - The central nervous system (CNS) and the peripheral nervous system (PNS)"],
+  ["What organs make up the CNS? - The brain and spinal cord"],
+  ["What makes up the peripheral nervous system? - All the nerves outside the brain and spinal cord"],
+  ["What is a neuron? - A specialised cell that transmits electrical signals"],
+  ["What are the three types of neurons? - Sensory neurons, motor neurons, and interneurons (relay neurons)"],
+  ["What does a sensory neuron do? - Carries signals from receptors to the CNS"],
+  ["What does a motor neuron do? - Carries signals from the CNS to effectors (muscles or glands)"],
+  ["What does an interneuron do? - Connects sensory and motor neurons within the CNS"],
+  ["What are dendrites? - Branch-like extensions of a neuron that receive signals from other neurons"],
+  ["What is an axon? - The long fibre of a neuron that carries electrical signals away from the cell body"],
+  ["What is myelin? - A fatty sheath around the axon that insulates it and speeds up signal transmission"],
+  ["What is a synapse? - The small gap between two neurons where signals are passed using neurotransmitters"],
+  ["What are neurotransmitters? - Chemical messengers that carry signals across a synapse"],
+  ["In what direction do signals cross a synapse? - From the sending (pre-synaptic) neuron to the receiving (post-synaptic) neuron"],
+
+  // --- Reflex arcs ---
+  ["What is a reflex action? - A fast, automatic response to a stimulus that does not involve conscious thought"],
+  ["What is a reflex arc? - The nerve pathway that produces a reflex action"],
+  ["What is the correct order of a reflex arc? - Receptor → Sensory neuron → Interneuron (spinal cord) → Motor neuron → Effector"],
+  ["Why are reflex actions faster than voluntary actions? - The signal only travels to the spinal cord, not all the way to the brain"],
+  ["Give two examples of reflex actions - Pulling your hand away from heat; the knee-jerk reaction when the patellar tendon is tapped"],
+  ["What is the role of the spinal cord in a reflex arc? - It acts as the control centre, processing the signal and sending a response without waiting for the brain"],
+  ["Can you still feel pain from a reflex action? - Yes — a separate signal travels to the brain after the reflex, so you feel pain slightly after the response"],
+
+  // --- Nervous system divisions ---
+  ["What are the two divisions of the peripheral nervous system? - The somatic nervous system and the autonomic nervous system"],
+  ["What does the somatic nervous system control? - Voluntary (conscious) movements of skeletal muscles"],
+  ["What does the autonomic nervous system control? - Involuntary body functions such as heart rate, digestion, and breathing"],
+  ["What are the two divisions of the autonomic nervous system? - The sympathetic and parasympathetic nervous systems"],
+  ["What does the sympathetic nervous system do? - Prepares the body for fight or flight — increases heart rate, dilates pupils, slows digestion"],
+  ["What does the parasympathetic nervous system do? - Returns the body to rest — slows heart rate, stimulates digestion (rest and digest)"],
+
+  // --- Brain structure (basic) ---
+  ["What are the three main regions of the brain? - The cerebrum, cerebellum, and brainstem"],
+  ["What does the cerebrum do? - Controls conscious thought, memory, language, and voluntary movement"],
+  ["What does the cerebellum do? - Coordinates balance, posture, and fine motor movements"],
+  ["What does the brainstem do? - Controls automatic functions like breathing, heart rate, and blood pressure"],
+  ["What part of the brain is the control centre for homeostasis? - The hypothalamus"],
+
+  // --- Sense organs ---
+  ["What are the five main sense organs? - Eyes, ears, nose, tongue, and skin"],
+  ["What do photoreceptors in the eye detect? - Light"],
+  ["What are the two types of photoreceptors in the retina? - Rods (detect light/dark) and cones (detect colour)"],
+  ["What do mechanoreceptors detect? - Mechanical pressure or vibration (e.g. touch, sound)"],
+  ["What do chemoreceptors detect? - Chemical stimuli (e.g. taste, smell, blood CO₂ levels)"],
 ];
 
 const TIMER_DURATION = 60;
